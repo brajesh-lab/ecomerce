@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} BlogHome {% endblock title %}
+
+{% block body %}<h1 style="background-color:powderblue;">WELCOME</h1>
+<div class="container my-4"><p style="background-color:tomato;">Product</p></div>
+<div class="container">
+    {% for i in item %}
+    <tr>
+        <td>
+            {{i.name}}
+        </td>
+        <td>
+            {{i.wieght}}
+        </td>
+        <td>
+            {{i.price}}
+        </td>
+        <td>
+            {% if i.photo %}
+            <td>
+                <img src="{{i.photo.url}}" class = "prod-size">
+            </td>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</div>
+
+ {% endblock %}

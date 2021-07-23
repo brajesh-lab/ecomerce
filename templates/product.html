@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} BlogHome {% endblock title %}
+
+{% block body %}<h1 style="background-color:powderblue;">WELCOME </h1>
+<div class="container my-4"><p style="background-color:tomato;">PRODUCTS</p></div>
+<div class="container  ">
+<form action="product" method="POST" >
+    {% csrf_token %}
+    <div class="form-group">
+    <label for="name">Product Name</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="Product name">
+  </div>
+  <div class="form-group">
+    <label for="name">Product Weight</label>
+    <input type="text" class="form-control" id="wieght" name="weight" placeholder="Enter weight">
+  </div>
+  <div class="form-group">
+    <label for="name">Product price</label>
+    <input type="text" class="form-control" id="price" name="price" placeholder="Enter producr price">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="customFile">Add product</label>
+    <input type="file" class="form-control" id="image" />
+  </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+</div>
+
+ {% endblock %}
