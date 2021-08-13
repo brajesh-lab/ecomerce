@@ -2,27 +2,26 @@
 
 {% block title %} BlogHome {% endblock title %}
 
-{% block body %}<h1 style="background-color:powderblue;">WELCOME</h1>
-<div class="container my-4"><p style="background-color:tomato;">Product</p></div>
+{% block body %}<h1 style="background-color:powderblue;text-align: center;">WELCOME</h1>
+<div class="container my-4">
+<p style="background-color:tomato; text-align: center;">PRODUCT</p></div>
 <div class="container">
     {% for i in item %}
     <tr>
         <td>
-            {{i.name}}
-        </td>
-        <td>
-            {{i.wieght}}
-        </td>
-        <td>
-            {{i.price}}
-        </td>
-        <td>
             {% if i.photo %}
             <td>
-                <img src="{{i.photo.url}}" class = "prod-size">
+                <img src="{{i.photo.url}}" style="width:50px;height:60px;">
             </td>
             {% endif %}
+           
         </td>
+        <td>
+            
+            <p>{{i.name}} <br> {{i.weight}} kg.. 
+           Rs {{i.price}}</p> 
+        </td>
+       
     </tr>
     {% endfor %}
 </div>
