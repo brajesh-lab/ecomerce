@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponseRedirect
 from .models import users, Post
-from datetime import  datetime
-from django.contrib.auth import authenticate, login, logout
-
+from datetime import  date
+from.models import users
+from django.contrib.auth import logout
 
 # Create your views here.
 def signup(request):
@@ -20,15 +20,19 @@ def home(request):
 def signin(request):
     context = {}
     if request.method == "POST":
-        email = request.POST.get("username")
-        pas   = request.POST.get("email")
-        user =  authenticate(request, email= email, pas = pas)
-        if user:
-            login(request, user)
+        email = request.POST.get("email")
+        pas   = request.POST.get("password")
+        print(email)
+        print(pas)
+        try:
+            user  =  users.objects.get(email= email, password = pas)
+            print(user)
+            request.session['name'] = user.id
+        
             context["user"] = email
             return render(request, 'success.html', context)
-            # return HttpResponseRedirect('success')
-        else:
+            return HttpResponseRedirect('success')
+        except:
             context["error"] = "Provide valid credentials"
             return render(request, 'signin.html', context)
     else:
@@ -46,16 +50,13 @@ def success(request):
     context['user'] = request.user
     return render(request, 'success.html', context)
 def message(request):
-    if request.user.is_authenticated:
-        id1 = request.user
-        user1 = users.objects.filter(f_name=id1)
-        if user1:
-            if request.method == "POST":
-                message = request.POST.get('message')
-                sets = Post(text = message, created_at=datetime.today, updated_at= datetime.today)
-                sets.save()
-        return render(request,'message.html')
-
-        
+    f_name = request.session['name']
+    objects = users.objects.get(id = f_name)
+    
+    if request.method == "POST":
+          message = request.POST.get('message')
+          Post.objects.create(userid = objects ,text = message, created_at= date.today,updated_at=date.today)
+          
+          return render(request,'message.html')
     else:
-        return render(request,'base.html')
+        return render(request,'message.html')
